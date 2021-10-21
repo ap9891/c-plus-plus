@@ -1,0 +1,33 @@
+#define pi pair<int,ListNode *>
+ ListNode* mergeKLists(vector<ListNode*>& lists) {
+        int n = lists.size();
+		//intitalizing our resultant list
+        ListNode *newHead = new ListNode(0);
+        ListNode *tail = newHead;
+        
+		//min ority queue which stores {node->val , node} 
+		// that it isn arranged by node's val
+        priority_queue<pi,vector<pi>,greater<pi>> pq;
+        
+        for(int i=0;i<n;i++)
+        {
+			//pushing all non-null nodes into the priority queue
+            if(lists[i]) pq.push({lists[i]->val , lists[i]});
+        }
+        
+        
+        while(!pq.empty())
+        {
+			//here we pop out the current min node present in pq
+            ListNode *node = pq.top().second;
+            pq.pop();
+			//add this min node to resultant list
+            tail->next = node;
+            tail = tail->next;
+            
+			//if next of this node exist push it in pq
+            if(node->next) pq.push({node->next->val,node->next});
+        }
+        
+        //when pq becomes empty we get our required list.
+        r
